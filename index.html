@@ -10,13 +10,12 @@
     
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/themes/dark.css" />
      <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/shoelace-autoloader.js"></script>
-
-
+  
 
     <!-- initialize my stuff -->
-    <script src="/js/themes.js"></script>
     <script src="/js/all.js"></script>
     <script src="/js/main.js"></script>
+<script src="/js/themes.js"></script>
     <script src="/js/randomquote.js"></script>
     <link rel="stylesheet" href="/themes.css" />
     <link rel="stylesheet" href="/style.css" />
@@ -26,7 +25,7 @@
     <script src='https://cdn.jsdelivr.net/npm/@widgetbot/crate@3' async defer>
       new Crate({
           server: '1148719137238040606', // Selenite
-          channel: '1164203315068932156' // #commands
+          channel: '1173731814196645909' // #commands
       })
     </script>
 
@@ -38,26 +37,12 @@
       name="keywords"
       content="front-end web developer, unblocked, games, google sites, unblocked games mom, ublocked, code, coding, programmer, development, javascript, jquery, bootstrap, sass, less, git, gaming, internet, website, best, site, cool, free games"
     />
-    <meta property="og:title" content="Welcome to Selenite." />
-    <meta property="og:site_name" content="https://selenite.cc" />
-    <meta
-      property="og:description"
-      content="Welcome to the one and only option for unblocked games. Welcome to Selenite."
-    />
-    <meta
-      name="description"
-      content="Welcome to the one and only option for unblocked games. Welcome to Selenite."
-    />
-    <meta name="author" content="Website Creator" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <!-- toastify -->
-    <script>
-      </script>
+
   </head>
   <alerts>
-    <sl-dialog label="Welcome to Selenite!" class="dialog-width" style="--width: 60vw;">
-      Thank you for choosing Selenite! You will be able to play over 140 high quality games, and we have many tools to make your experience better.
+    <sl-dialog label="Welcome to Selenite!" class="dialog-width" style="--width: 60vw;display:none;">
+      Thank you for choosing Selenite! You will be able to play over 150 high quality games, and we have many tools to make your experience better.
       <br>
       Wanting to transfer your data from another website? Try the transfer utility in the footer!
       <br>
@@ -78,27 +63,34 @@
       <a href="/projects.html">Games</a>
       <a href="/settings.html">Settings</a>
       <a href="/support.html">Support</a>
-      <a href="/blank.html">Open Blank</a>
+      <a id="blank" href="#">Open Blank</a>
       <a href="/about.html">About</a>
     </header>
     <main id="main" class="noscroll">
-      <h1>selenite.</h1>
+      <b style="font-weight:1000px;"><h1>selenite.</h1></b>
+      <noscript>enable javascript if you want the games to actually load</noscript>
       <p id="randomquote">...</p>
       <div class="samerow">
         <div class="img-container">
-          <a href="https://patreon.com/selenitecc"><img src="img/Digital-Patreon-Logo_White.png"></a>
+          <a href="https://patreon.com/selenitecc"><img src="img/patreon.svg"></a>
         </div>
         <div class="img-container">
-          <a href="projects.html"><img src="img/baseline_sports_esports_white_48dp.png"></a>
+          <a href="projects.html"><img src="img/games.svg"></a>
         </div>
         <div class="img-container">
-          <a href="https://discord.gg/7jyufnwJNf"><img src="img/discord-mark-white.png"></a>
+          <a href="https://discord.gg/7jyufnwJNf"><img src="img/discord.svg"></a>
         </div>
       </div>
+      <div id="adcontainer">
+        <h3><a href="ad.html">AD (click to read more):</a></h3>
+        <script async="async" data-cfasync="false" src="//snailthreatenedinvited.com/92108816b5da54426d1639bcbfb5785c/invoke.js"></script>
+        <div id="container-92108816b5da54426d1639bcbfb5785c"></div>
+      </div>
+      <BR>
     </main>
     
     <footer class="noscroll">
-      <a href="https://github.com/selenite-cc/Selenite">Source Code</a>
+      <a href="https://codeberg.org/skysthelimitt/selenite">Source Code</a>
       <a id="panicmode">Panic Mode</a>
       <a href="/transfer.html">Transfer your data</a>
       <a href="/suggest.html">Bug Reports</a>

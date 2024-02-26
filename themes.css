@@ -1,9 +1,39 @@
+:root {
+     --inputbg: #3c096c;
+    --inputborder: #5a189a;
+    --uibg: #240046;
+    --textcolor: #fff;
+    --bg: #10002b;
+}
 body {
-    --inputbg: #000000;
-    --inputborder: #000000;
-    --uibg: #000000;
-    --textcolor: #000;
+ --inputbg: #3c096c;
+    --inputborder: #5a189a;
+    --uibg: #240046;
+    --textcolor: #fff;
+    --bg: #10002b;
+}
+body[theme=threekho] {
+ --inputbg: #28A018;
+    --inputborder: #0A8F00;
+    --uibg: #111111;
+    --textcolor: #fff;
     --bg: #000000;
+}
+button[theme=threekho] {
+     background: var(--inputbg);
+    width: fit-content;
+    padding: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    color: #fff;
+    border: 0
+}
+body[theme=custom] {
+    --inputbg: #3c096c;
+    --inputborder: #5a189a;
+    --uibg: #240046;
+    --textcolor: #fff;
+    --bg: #10002b;
 }
 body[theme=main] {
     --inputbg: #3c096c;
@@ -39,4 +69,31 @@ body[theme=cools1te] {
     --uibg: #ab28cf;
     --textcolor: #d3a4fa;
     --bg: #8e14af;
+}
+body[theme=sunset] {
+    --inputbg: #537294;
+    --inputborder: #30719c;
+    --uibg: #2a7491;
+    --textcolor: #fff;
+    --bg: url("themebgs/sunset_theme.jpg"), rgb(59, 67, 78);
+    /* https://wallhaven.cc/w/jxl3qp */
+    --shadow: 0px 0px 2px #a5dcf5;
+}
+body[theme=mountains] {
+    --inputbg: #d37f7f;
+    --inputborder: #e28a8a;
+    --uibg: #d38493;
+    --textcolor: #fff;
+    --bg: url("themebgs/mountains_theme.jpg"), #bf7483;
+    /* https://wallhaven.cc/w/l82kpr */
+    --shadow: 0px 0px 4px #bba29b;
+}
+body[theme=vaporwave] {
+    --inputbg: #4b2d64;
+    --inputborder: #74568d;
+    --uibg: #51166d;
+    --textcolor: #fff;
+    --bg: url("themebgs/vaporwave_theme.jpg"), #61437a;
+    /* https://wallhaven.cc/w/l82kpr */
+    --shadow: 0px 0px 4px #000000;
 }
