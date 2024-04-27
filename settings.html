@@ -8,13 +8,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src=" https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js "></script>
     
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/themes/dark.css" />
-     <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/shoelace-autoloader.js"></script>
+
 
 
     <!-- initialize my stuff -->
     <script src="/js/all.js"></script>
     <script src="/js/main.js"></script>
+		<script src="/js/widget.js"></script>
 <script src="/js/themes.js"></script>
     <script src="/js/cloaks.js"></script>
     <script src="/js/themes.js"></script>
@@ -33,16 +33,17 @@
   </head>
 
   <body>
-    <header>
-      <a href="/index.html">Home</a>
-      <a href="/bookmarklets.html">Bookmarklets</a>
-            <a href="/projects.html">Games</a>
-      <a href="/settings.html">Settings</a>
-      <a href="/support.html">Support</a>
-      <a id="blank" href="#">Open Blank</a>
-      <a href="/about.html">About</a>
-      
-    </header>
+ 	<header>
+			<a href="/index.html">Home</a>
+			<a href="/bookmarklets.html">Bookmarklets</a>
+			<a href="/projects.html">Games</a>
+			<a href="/apps.html">Apps</a>
+			<a href="/settings.html">Settings</a>
+			<a id="blank" href="#">Open Blank</a>
+			<div id="status">
+				<p id="time">00:00 AM</p>
+			</div>
+		</header>
 
     <main>
       <h1>Settings</h1>
@@ -53,6 +54,7 @@
         <input type="text" id="webicon" name="webicon" placeholder="https://selenite.cc/" /><br />
         <h3>Or select a preset:</h3>
         <select id="presetCloaks">
+          <option>Select a preset:</option>
           <option value="google">Google</option>
           <option value="canvas">Canvas</option>
           <option value="desmos">Desmos</option>
@@ -82,16 +84,27 @@
         <label for="tabDisguise">Disguise your tab when you click off (currently only Google)</label><br>
       </div>
       <h3>Themes</h3>
+      <div class="samerow">
+        <input type="checkbox" id="bgTheme" name="bgTheme">
+        <label for="bgTheme">Background:</label><br>
+      </div>
       <div class="samerow themebtns">
         <button onclick="setTheme('main')" style="background-color: #3c096c; color: #fff; border: 5px solid #5a189a">selenite</button>
         <button onclick="setTheme('light')" style="background-color: #bbbbbb; color: #1a1a1a; border: 5px solid #e6e6e6">light mode</button>
         <button onclick="setTheme('dark')" style="background-color: #333333; color: #fff; border: 5px solid #444444">dark mode</button>
         <button onclick="setTheme('egamepass')" style="background-color: #596eb1; color: #cbe0ff; border: 5px solid #5586e0">e-gamepass</button>
         <button onclick="setTheme('cools1te')" style="background-color: #a134dc; color: #d3a4fa; border: 5px solid #b153e3">cools1te</button>
-        <button onclick="setTheme('sunset')" style="background-color: #537294; color: #fff; border: 5px solid #30719c">sunset</button>
-        <button onclick="setTheme('mountains')" style="background-color: #d37f7f; color: #fff; border: 5px solid #e28a8a">mountains</button>
-        <button onclick="setTheme('vaporwave')" style="background-color: #4b2d64; color: #fff; border: 5px solid #74568d">vaporwave</button>
+        <button onclick="setTheme('sunset' + (bgTheme.checked ? '' : 'false'))" style="background-color: #537294; color: #fff; border: 5px solid #30719c">sunset</button>
+        <button onclick="setTheme('mountains' + (bgTheme.checked ? '' : 'false'))" style="background-color: #d37f7f; color: #fff; border: 5px solid #e28a8a">mountains</button>
+        <button onclick="setTheme('vaporwave' + (bgTheme.checked ? '' : 'false'))" style="background-color: #4b2d64; color: #fff; border: 5px solid #74568d">vaporwave</button>
         <button onclick="setTheme('threekho')" style="background-color: #28A018; color: #fff; border: 5px solid #0A8F00">3kh0</button>
+        <button onclick="setTheme('bgs' + (bgTheme.checked ? '' : 'false'))" style="background-color: #553113; color: #fff; border: 5px solid #3d220c">bigfoot</button>
+        <button onclick="setTheme('seraph' + (bgTheme.checked ? '' : 'false'))" style="background-color: #000; color: #fff; border: 2px solid #fff">seraph</button>
+        <button onclick="setTheme('nighttime' + (bgTheme.checked ? '' : 'false'))" style="background-color: #29374d; color: #fff; border: 2px solid #fff">nighttime</button>
+        <button onclick="setTheme('mocha' + (bgTheme.checked ? '' : 'false'))" style="background-color: #6c7086; color: #fff; border: 2px solid #7f849c">Mocha</button>
+        <button onclick="setTheme('macchiato' + (bgTheme.checked ? '' : 'false'))" style="background-color: #6e738d; color: #fff; border: 5px solid #8087a2">Macchiato</button>
+        <button onclick="setTheme('frappe' + (bgTheme.checked ? '' : 'false'))" style="background-color: #737994; color: #cad3f5; border: 2px solid #838ba7">Frappe</button>
+        <button onclick="setTheme('latte' + (bgTheme.checked ? '' : 'false'))" style="background-color: #9ca0b0; color: #4c4f69; border: 5px solid #8c8fa1">Latte</button>
         <button onclick="customTheme()">custom</button>
       </div>
       <div id="customMenu" style="display: none;">
@@ -127,16 +140,20 @@
         <input id="setPass" class="submit" type="submit" value="Set Password" />
         <button id="delPass" onclick="delPassword()">Delete Password</button>
       </form>
+      <form>
+        <h3 for="adblock">Disable Advertisements</h3>
+        <p>If you disable advertisements, please donate to the <a href="https://www.patreon.com/selenitecc">Patreon</a> to support the website.</p>
+<button onclick="localStorage.setItem('selenite.adblock', 'true')">Click here to disable ads.</button>
+        </form>
     </main>
-
+<br>
     <footer>
-      <a href="https://codeberg.org/skysthelimitt/selenite">Source Code</a>
-      <a id="panicmode">Panic Mode</a>
-      <a href="/transfer.html">Transfer your data</a>
-      <a href="/suggest.html">Bug Reports</a>
+      <a href="https://codeberg.org/skysthelimitt/selenite">Source</a>
       <a href="https://discord.gg/7jyufnwJNf">Discord</a>
-      <a href="/suggest.html">Suggestions</a>
+      <a href="/suggest.html">Suggestions & Bugs</a>
       <a href="/contact.html">Contact</a>
+      <a href="/support.html">Donate</a>
+      <a href="/about.html">About</a>
     </footer>
   </body>
 </html>

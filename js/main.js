@@ -1,16 +1,6 @@
-var interval;
-function check() {
-}
 
+var interval;
 document.addEventListener("DOMContentLoaded", function () {
-	if (document.querySelectorAll("[id=adcontainer]")) {
-		for (let i = 0; i < document.querySelectorAll("[id=adcontainer]").length; i++) {
-			if (Math.random() < 0.5 || localStorage.getItem("selenite.adblock") == "true") document.querySelectorAll("[id=adcontainer]")[i].innerHTML = "";
-		}
-	}
-	const iconSetting = document.querySelector("input#discordIcon");
-	const blockClose = document.querySelector("input#blockClose");
-	const openBlank = document.getElementById("blank");
 	if (localStorage.getItem("theme")) {
 		localStorage.setItem("selenite.theme", localStorage.getItem("theme"));
 		localStorage.removeItem("theme");
@@ -20,12 +10,21 @@ document.addEventListener("DOMContentLoaded", function () {
 	} else {
 		document.body.setAttribute("theme", "main");
 	}
-	if (document.querySelector("widgetbot-crate")) {
-		if (localStorage.getItem("selenite.discordIcon") == "true") {
-			const widget = document.querySelector("widgetbot-crate");
-			widget.setAttribute("style", "display:none");
+	if (document.querySelectorAll("[id=adcontainer]")) {
+		for (let i = 0; i < document.querySelectorAll("[id=adcontainer]").length; i++) {
+			if (Math.random() < 0.5 || localStorage.getItem("selenite.adblock") == "true") document.querySelectorAll("[id=adcontainer]")[i].innerHTML = "";
 		}
 	}
+	const iconSetting = document.querySelector("input#discordIcon");
+	const blockClose = document.querySelector("input#blockClose");
+	const openBlank = document.getElementById("blank");
+	const bgTheme = document.querySelector("input#bgTheme");
+	// if (document.querySelector("widgetbot-crate")) {
+	// 	if (localStorage.getItem("selenite.discordIcon") == "true") {
+	// 		const widget = document.querySelector("widgetbot-crate");
+	// 		widget.setAttribute("style", "display:none");
+	// 	}
+	// }
 	if (document.querySelector("input#discordIcon")) {
 		if (localStorage.getItem("selenite.discordIcon") == "true") {
 			iconSetting.checked = true;
@@ -50,7 +49,9 @@ document.addEventListener("DOMContentLoaded", function () {
 			localStorage.setItem("selenite.tabDisguise", tabDisguise.checked);
 		});
 	}
-
+	if (document.querySelector("input#bgTheme")) {
+		bgTheme.checked = true;
+	}
 	document.getElementById("blank").addEventListener("click", () => {
 		win = window.open();
 		win.document.body.style.margin = "0";
@@ -63,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		location.href = "https://google.com";
 		close();
 	});
-	checkAlert();
 	if ($("#panicmode").length > 0) {
 		$("#panicmode").prop({ href: panicurl });
 	}
@@ -71,25 +71,12 @@ document.addEventListener("DOMContentLoaded", function () {
 		$.get("https://raw.githubusercontent.com/skysthelimitt/selenite-optimized/main/build/bookmark.txt", function (data) {
 			$(".seleniteminified").prop({ href: data });
 		});
-		$.get("https://raw.githubusercontent.com/car-axle-client/car-axle-client/v8.1/dist/build.js", function (data) {
+		$.get("https://raw.githubusercontent.com/car-axle-client/car-axle-client/v10/dist/build.js", function (data) {
 			$(".caraxle").prop({ href: `javascript:${encodeURI(data)}` });
 		});
 	}
+	initTime();
 });
-
-function checkAlert() {
-	if (!Cookies.get("supportalert")) {
-		const dialog = document.querySelector(".dialog-width");
-		const openButton = dialog.nextElementSibling;
-		const closeButton = dialog.querySelector('sl-button[slot="footer"]');
-		setTimeout(() => {
-			dialog.removeAttribute("display");
-			dialog.show();
-		}, 250);
-		closeButton.addEventListener("click", () => dialog.hide());
-		Cookies.set("supportalert", true, { expires: 60 });
-	}
-}
 function setPanicMode() {
 	if (!$("#panic").val().startsWith("https")) {
 		document.cookie = "panicurl=https://" + $("#panic").val();
@@ -98,12 +85,10 @@ function setPanicMode() {
 
 	document.cookie = "panicurl=" + $("#panic").val();
 }
-
 function copyToClipboard(text) {
 	navigator.clipboard.writeText(text);
 	alert("Copied text!");
 }
-
 function setTheme(theme) {
 	localStorage.setItem("selenite.theme", theme);
 	document.body.setAttribute("theme", theme);
@@ -127,3 +112,86 @@ function delPassword() {
 	localStorage.removeItem("selenite.passwordAtt");
 	localStorage.removeItem("selenite.password");
 }
+
+function getCurrentTime() {
+	const n = document.getElementById("time");
+
+	fetch("https://worldtimeapi.org/api/ip")
+		.then((response) => response.json())
+		.then((data) => {
+			const t = new Date(data.utc_datetime);
+			const formattedTime = t.toLocaleTimeString(undefined, {
+				hour: "numeric",
+				minute: "numeric",
+				second: "numeric",
+				hour12: true,
+			});
+			n.textContent = formattedTime;
+		})
+		.catch(() => {
+			const currentTime = new Date();
+			const formattedTime = currentTime.toLocaleTimeString(undefined, {
+				hour: "numeric",
+				minute: "numeric",
+				second: "numeric",
+				hour12: true,
+			});
+			n.textContent = formattedTime;
+		});
+}
+
+getCurrentTime();
+setInterval(getCurrentTime, 900);
+
+
+$(document).ready(function () {
+	if (!window.location.href.startsWith("about:")) {
+		$("#webicon").attr("placeholder", window.location.href.replace(/\/[^\/]*$/, "/"));
+	}
+});
+function loadScript(a, b) {
+	var c = document.createElement("script");
+	(c.type = "text/javascript"), (c.src = a), (c.onload = b), document.head.appendChild(c);
+}
+function toast(message, onclick) {
+	const toast = document.createElement("div");
+	toast.setAttribute("id", "toast");
+	console.log(message.time);
+	toast.innerHTML = `<div class=samerow><h1>${message.title}${message.time ? ` - ${timeAgo(new Date(message.time * 1000))}` : ""}</h1></div><p>${message.message}</p>`;
+	toast.style.animation = "toastFade 6s";
+	document.body.appendChild(toast);
+	if(onclick){
+		toast.addEventListener("click", onclick);
+		toast.style.cursor = 'pointer';
+	}
+	setTimeout(() => {
+		toast.remove();
+	}, 6000);
+}
+function timeAgo(input) {
+	const date = input instanceof Date ? input : new Date(input);
+	const formatter = new Intl.RelativeTimeFormat("en");
+	const ranges = {
+		years: 3600 * 24 * 365,
+		months: 3600 * 24 * 30,
+		weeks: 3600 * 24 * 7,
+		days: 3600 * 24,
+		hours: 3600,
+		minutes: 60,
+		seconds: 1,
+	};
+	const secondsElapsed = (date.getTime() - Date.now()) / 1000;
+	for (let key in ranges) {
+		if (ranges[key] < Math.abs(secondsElapsed)) {
+			const delta = secondsElapsed / ranges[key];
+			return formatter.format(Math.round(delta), key);
+		}
+	}
+}
+let cookieConsentScript = document.createElement("script");
+cookieConsentScript.src = "/js/cookieConsent.js";
+document.head.appendChild(cookieConsentScript);
+let cookieConsentStyle = document.createElement("link");
+cookieConsentStyle.href = "/js/cookieConsent.css";
+cookieConsentStyle.rel = "stylesheet";
+document.head.appendChild(cookieConsentStyle);
